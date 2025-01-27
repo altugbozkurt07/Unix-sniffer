@@ -1,0 +1,20 @@
+[package]
+name = "unix-sniffer-common"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = []
+user = ["aya"]
+
+[dependencies]
+aya = { workspace = true, optional = true }
+aya-ebpf = { workspace = true }
+cfg-if = { workspace = true }
+paste = { workspace = true }
+
+[build-dependencies]
+bindgen = { workspace = true }
+
+[lib]
+path = "src/lib.rs"

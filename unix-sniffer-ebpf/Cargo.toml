@@ -1,0 +1,17 @@
+[package]
+name = "unix-sniffer-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+unix-sniffer-common = { path = "../unix-sniffer-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "unix-sniffer"
+path = "src/main.rs"

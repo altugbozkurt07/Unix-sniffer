@@ -1,0 +1,46 @@
+[package]
+name = "unix-sniffer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+unix-sniffer-common = { path = "../unix-sniffer-common", features = ["user"] }
+
+anyhow = { workspace = true, default-features = true }
+aya = { workspace = true }
+aya-log = { workspace = true }
+env_logger = { workspace = true }
+libc = { workspace = true }
+log = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt", "rt-multi-thread", "net", "signal"] }
+
+bytes = "1.8.0"
+serde = "1.0.215"
+flume = "0.11.1"
+tokio-util = "0.7.12"
+reqwest = {version = "0.12.9", features = ["json"]}
+serde_json = "1.0.133"
+config = "0.14.1"
+tracing = "0.1.41"
+structopt = "0.3.26"
+
+[build-dependencies]
+anyhow = { workspace = true }
+aya-build = { workspace = true }
+# TODO(https://github.com/rust-lang/cargo/issues/12375): this should be an artifact dependency, but
+# it's not possible to tell cargo to use `-Z build-std` to build it. We cargo-in-cargo in the build
+# script to build this, but we want to teach cargo about the dependecy so that cache invalidation
+# works properly.
+#
+# Note also that https://github.com/rust-lang/cargo/issues/10593 occurs when `target = ...` is added
+# to an artifact dependency; it seems possible to work around that by setting `resolver = "1"` in
+# Cargo.toml in the workspace root.
+#
+# Finally note that *any* usage of `artifact = ...` in *any* Cargo.toml in the workspace breaks
+# workflows with stable cargo; stable cargo outright refuses to load manifests that use unstable
+# features.
+unix-sniffer-ebpf = { path = "../unix-sniffer-ebpf" }
+
+[[bin]]
+name = "unix-sniffer"
+path = "src/main.rs"
