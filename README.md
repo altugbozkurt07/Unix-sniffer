@@ -14,8 +14,17 @@
 Use `cargo build`, `cargo check`, etc. as normal. Run your program with:
 
 ```shell
-cargo run --release --config 'target."cfg(all())".runner="sudo -E"'
+cargo run --release --config 'target."cfg(all())".runner="sudo -E" -- (scm-creds|scm-fds|unix-socket)'
 ```
+
+There are 3 available mods you can choose: `unix-socket`, `scm-fds`, and `scm_creds`.
+
+`unix-socket` : when enabled, allows you to listen to unix socket traffic specified in systemwatchers.
+![unix socket sniffer](image-1.png)
+`scm-fds` : allows you to monitor file descriptors passed through unix sockets.
+![fds passed over unix socket](image.png)
+`scm-creds` : allows you to monitor scm_credentials event used as an authentication mechanism between different processes.
+![scm_credential events](image-2.png)
 
 Cargo build scripts are used to automatically build the eBPF correctly and include it in the
 program.
