@@ -80,7 +80,7 @@ async fn main() -> Result<(), anyhow::Error> {
 
 pub async fn listen_unix_socket_events<'a>(cpus: Vec<u32>, num_cpus: usize, bpf: &'a mut Ebpf) -> Result<(), anyhow::Error>{
     println!("UNIX SOCKET EVENT LISTENER WILL BE STARTED");
-    let mut events = AsyncPerfEventArray::try_from(bpf.take_map("UNIXEVENT").expect("lol ne oluyor amk"))?;
+    let mut events = AsyncPerfEventArray::try_from(bpf.take_map("UNIXEVENT").expect("could not take map"))?;
     for cpu in cpus {
         let mut buf = events.open(cpu, None)?;
 

@@ -32,7 +32,6 @@ impl SystemWatcher{
         }else{
             println!("default values initialized");
             socket_path.push("/var/run/docker.sock".to_string());
-            socket_path.push("/tmp/konfik.sock".to_string());
         }
         
         for service_path in socket_path{
